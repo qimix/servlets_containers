@@ -23,7 +23,9 @@ public class PostController {
     response.getWriter().print(gson.toJson(data));
   }
 
-  public void getById(long id, HttpServletResponse response) {
+  public void getById(long id, HttpServletResponse response) throws IOException {
+    response.setContentType(APPLICATION_JSON);
+    response.getWriter().print(id);
     // TODO: deserialize request & serialize response
   }
 
@@ -36,6 +38,7 @@ public class PostController {
   }
 
   public void removeById(long id, HttpServletResponse response) {
+
     // TODO: deserialize request & serialize response
   }
 }
