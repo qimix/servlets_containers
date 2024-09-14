@@ -25,7 +25,8 @@ public class PostController {
 
   public void getById(long id, HttpServletResponse response) throws IOException {
     response.setContentType(APPLICATION_JSON);
-    response.getWriter().print(id);
+    response.getWriter().print(service.getById(id));
+    response.getOutputStream().print(String.valueOf(service.getById(id)));
     // TODO: deserialize request & serialize response
   }
 
@@ -35,6 +36,7 @@ public class PostController {
     final var post = gson.fromJson(body, Post.class);
     final var data = service.save(post);
     response.getWriter().print(gson.toJson(data));
+    response.getOutputStream().print(String.valueOf(data.getContent()));
   }
 
   public void removeById(long id, HttpServletResponse response) {

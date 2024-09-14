@@ -22,6 +22,7 @@ public class PostService {
   }
 
   public Post save(Post post) {
+    if(post.getId() == repository.getById(post.getId()).)
     return repository.save(post);
   }
 
