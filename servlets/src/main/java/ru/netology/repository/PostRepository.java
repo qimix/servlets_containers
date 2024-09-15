@@ -9,30 +9,37 @@ import java.util.Optional;
 
 // Stub
 public class PostRepository {
-  List<Post> list = Collections.synchronizedList(new ArrayList<Post>());
-  long count;
-  public List<Post> all() {
-    return list;
-  }
+    List<Post> list = Collections.synchronizedList(new ArrayList<Post>());
+    long count = list.size();
 
-  public Optional<Post> getById(long id) {
-    for(Post i : list){
-      if(i.getId() == id){
-        return Optional.of(i);
-      };
+    public List<Post> all() {
+        return list;
     }
-    return Optional.empty();
-  }
 
-  public Post save(Post post) {
-    for(Post i : list){
-      if(i.getId() == post.getId()){
-        list.set(i.getId(), post.getContent());
-      }
-    };
-    return post;
-  }
+    public Optional<Post> getById(long id) {
+        for (Post i : list) {
+            if (i.getId() == id) {
+                return Optional.of(i);
+            }
+            ;
+        }
+        return Optional.empty();
+    }
 
-  public void removeById(long id) {
-  }
+    public Post save(Post post) {
+        for (Post i : list) {
+            if (i.getId() == post.getId()) {
+                Post old_post = new Post(i.getId(), post.getContent());
+                list.add(old_post);
+                return old_post;
+            }
+        }
+        ;
+        Post new_post = new Post(count++, post.getContent());
+        list.add(new_post);
+        return new_post;
+    }
+
+    public void removeById(long id) {
+    }
 }
