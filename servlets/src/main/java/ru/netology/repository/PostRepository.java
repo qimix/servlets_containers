@@ -27,17 +27,16 @@ public class PostRepository {
     }
 
     public Post save(Post post) {
-        for (Post i : list) {
-            if (i.getId() == post.getId()) {
-                Post old_post = new Post(i.getId(), post.getContent());
-                list.add(old_post);
-                return old_post;
+        for (int i = 0; i < list.size(); i++) {
+            Post tmp_post = list.get(i);
+            if (post.getId() == tmp_post.getId()) {
+                list.set(i, post);
+                return list.get(i);
             }
         }
         ;
-        Post new_post = new Post(count++, post.getContent());
-        list.add(new_post);
-        return new_post;
+        list.add(new Post(count++, post.getContent()));
+        return list.get(list.size() - 1);
     }
 
     public void removeById(long id) {
