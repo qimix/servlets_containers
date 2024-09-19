@@ -25,14 +25,15 @@ public class MainServlet extends HttpServlet {
     try {
       final var path = req.getRequestURI();
       final var method = req.getMethod();
+      final var param = req.getParameter("id");
       // primitive routing
-      if (method.equals("GET") && path.equals("/api/posts")) {
+      if (method.equals("GET") && path.equals("/api/posts") && param == null) {
         controller.all(resp);
         return;
       }
-      if (method.equals("GET") && path.matches("/api/posts/\\d+")) {
+      if (method.equals("GET") && path.matches("/api/posts") && !(param == null)) {
         // easy way
-        final var id = Long.parseLong(path.substring(path.lastIndexOf("/")));
+        final var id = Long.parseLong(param);
         controller.getById(id, resp);
         return;
       }
@@ -40,9 +41,9 @@ public class MainServlet extends HttpServlet {
         controller.save(req.getReader(), resp);
         return;
       }
-      if (method.equals("DELETE") && path.matches("/api/posts/\\d+")) {
+      if (method.equals("DELETE") && path.matches("/api/posts")) {
         // easy way
-        final var id = Long.parseLong(path.substring(path.lastIndexOf("/")));
+        final var id = Long.parseLong(param);
         controller.removeById(id, resp);
         return;
       }

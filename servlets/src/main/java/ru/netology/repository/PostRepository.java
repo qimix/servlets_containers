@@ -40,5 +40,11 @@ public class PostRepository {
     }
 
     public void removeById(long id) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == id) {
+                list.remove(i);
+                return;
+            }
+        }
     }
 }

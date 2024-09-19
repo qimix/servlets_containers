@@ -25,8 +25,7 @@ public class PostController {
 
     public void getById(long id, HttpServletResponse response) throws IOException {
         response.setContentType(APPLICATION_JSON);
-        response.getWriter().print(service.getById(id));
-        response.getOutputStream().print(String.valueOf(service.getById(id)));
+        response.getOutputStream().print(String.valueOf(service.getById(id).getContent()));
         // TODO: deserialize request & serialize response
     }
 
@@ -38,8 +37,10 @@ public class PostController {
         response.getOutputStream().print(String.valueOf(data.getContent()));
     }
 
-    public void removeById(long id, HttpServletResponse response) {
-
+    public void removeById(long id, HttpServletResponse response) throws IOException {
+        response.setContentType(APPLICATION_JSON);
+        response.getOutputStream().print(String.valueOf(service.getById(id).getContent() + " - deleted"));
+        service.removeById(id);
         // TODO: deserialize request & serialize response
     }
 }
