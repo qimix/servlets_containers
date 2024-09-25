@@ -3,11 +3,12 @@ package ru.netology.repository;
 import ru.netology.model.Post;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 // Stub
 public class PostRepository {
-    private Map<Long, Post> map = Collections.synchronizedMap(new HashMap<>());
+    private ConcurrentHashMap<Long, Post> map = new ConcurrentHashMap<>();
     private AtomicLong count = new AtomicLong(map.size());
 
     public  Map<Long, Post> all() {
@@ -26,9 +27,9 @@ public class PostRepository {
             map.put(post.getId(), new Post(post.getId(), post.getContent()));
             return map.get(post.getId());
         }
-        long tmpcount = count.incrementAndGet();
-        map.put(tmpcount, new Post(tmpcount, post.getContent()));
-        return map.get(tmpcount);
+        long tmpCount = count.incrementAndGet();
+        map.put(tmpCount, new Post(tmpCount, post.getContent()));
+        return map.get(tmpCount);
     }
 
     public void removeById(long id) {
