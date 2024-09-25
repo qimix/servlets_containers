@@ -7,8 +7,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 // Stub
 public class PostRepository {
-    Map<Long, Post> map = Collections.synchronizedMap(new HashMap<>());
-    AtomicLong count = new AtomicLong(map.size());
+    private Map<Long, Post> map = Collections.synchronizedMap(new HashMap<>());
+    private AtomicLong count = new AtomicLong(map.size());
 
     public  Map<Long, Post> all() {
         return map;
